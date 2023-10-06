@@ -2,7 +2,7 @@ import pika
 
 # Connection parameters for RabbitMQ
 connection_params = pika.ConnectionParameters(
-    host='13.233.39.76',  # Change to the appropriate hostname or IP address if needed
+    host='localhost',  # Change to the appropriate hostname or IP address if needed
     port=5673,
     credentials=pika.credentials.PlainCredentials('guest', 'guest')
 )
