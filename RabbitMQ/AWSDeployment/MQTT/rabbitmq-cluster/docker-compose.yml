@@ -1,0 +1,38 @@
+
+version: '3'
+services:
+  rabbitmq1:
+    image: rabbitmq:latest
+    hostname: rabbit1
+    ports:
+      - "5673:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_ERLANG_COOKIE=my-secret-cookie
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=adminpass
+    networks:
+      - rabbitmq-cluster
+
+  rabbitmq2:
+    image: rabbitmq:latest
+    hostname: rabbit2
+    environment:
+      - RABBITMQ_ERLANG_COOKIE=my-secret-cookie
+    networks:
+      - rabbitmq-cluster
+    depends_on:
+      - rabbitmq1
+
+  rabbitmq3:
+    image: rabbitmq:latest
+    hostname: rabbit3
+    environment:
+      - RABBITMQ_ERLANG_COOKIE=my-secret-cookie
+    networks:
+      - rabbitmq-cluster
+    depends_on:
+      - rabbitmq1
+
+networks:
+  rabbitmq-cluster:
